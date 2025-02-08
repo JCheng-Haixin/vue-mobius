@@ -1,0 +1,29 @@
+{
+  "name": "vue-mobius",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JCheng-Haixin/vue-mobius",
+    "directory": "packages/vue-mobius"
+  },
+  "bugs": "https://github.com/vant-ui/vant/issues",
+  "keywords": [
+    "ui",
+    "vue",
+    "vue3",
+    "mobile",
+    "frontend",
+    "component",
+    "components"
+  ],
+  "author": "Huang Haixin and Xu Yiming",
+  "license": "MIT"
+}
