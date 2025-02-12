@@ -12,9 +12,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/JCheng-Haixin/vue-mobius",
-    "directory": "packages/vue-mobius"
+    "directory": "packages/mobius"
   },
-  "bugs": "https://github.com/vant-ui/vant/issues",
+  "bugs": "https://github.com/JCheng-Haixin/vue-mobius/issues",
   "keywords": [
     "ui",
     "vue",
