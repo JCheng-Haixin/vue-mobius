@@ -1,9 +1,26 @@
 {
   "name": "vue-mobius",
+  "type": "module",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./components": {
+      "types": "./dist/components/index.d.ts",
+      "import": "./dist/components/index.js",
+      "require": "./dist/components/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
+    "build": "unbuild",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "publishConfig": {
@@ -25,5 +42,13 @@
     "components"
   ],
   "author": "Huang Haixin and Xu Yiming",
-  "license": "MIT"
+  "license": "MIT",
+  "peerDependencies": {
+    "lodash-es": "^4.17.21",
+    "vue": "^3.0.0"
+  },
+  "devDependencies": {
+    "sass": "^1.84.0",
+    "unbuild": "^3.3.1"
+  }
 }
