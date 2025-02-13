@@ -1,12 +1,12 @@
 <script lang="ts">
-const { name } = createNamespace('flex');
-export default {
-  name
-}
+  const { name, bem } = createNamespace('flex');
+  export default {
+    name
+  }
 </script>
 
 <script setup lang="ts">
-  import type { StyleValue } from 'vue';
+  import { computed, type StyleValue } from 'vue';
   import { createNamespace } from '../utils/namespace';
 
   type FlexChild = {
@@ -16,43 +16,39 @@ export default {
     animate?: boolean
   }
 
-  withDefaults(defineProps<{
+  const props = withDefaults(defineProps<{
     direction?: 'row' | 'row-reverse' | 'column' | 'column-reverse',
     start?: FlexChild,
     main?: FlexChild,
     end?: FlexChild,
   }>(), { direction: 'row' })
+
+  const transition = computed(() => props.direction.includes('row') ? 'width' : 'height')
 </script>
 
 <template>
-  <div
-    class="flex-layout"
-    :class="`flex-layout--${direction}`"
-  >
-    <Transition :name="direction.includes('row') ? 'width' : 'height'">
+  <div :class="[bem(), bem({ [direction]: true })]">
+    <Transition :name="transition">
       <div v-if="start?.visible !== false" 
-        :class="start?.class"
-        :style="start?.style"
-        class="flex-layout-start">
+        :class="[bem('start'), start?.class]"
+        :style="start?.style">
         <slot name="start" />
       </div>
     </Transition>
-    <Transition :name="direction.includes('row') ? 'width' : 'height'">
+    <Transition :name="transition">
       <div
         v-if="main?.visible !== false"
         ref="refMain"
-        :class="main?.class"
+        :class="[bem('main'), main?.class]"
         :style="main?.style"
-        class="flex-layout-main"
       >
         <slot />
       </div>
     </Transition>
-    <Transition :name="direction.includes('row') ? 'width' : 'height'">
+    <Transition :name="transition">
       <div v-if="end?.visible !== false" 
-        :class="end?.class"
-        :style="end?.style"
-        class="flex-layout-end">
+        :class="[bem('end'), end?.class]"
+        :style="end?.style">
         <slot name="end" />
       </div>
     </Transition>
@@ -60,18 +56,18 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-  .flex-layout {
+  .mo-flex {
     display: flex;
     flex-direction: v-bind(direction);
     box-sizing: border-box;
 
-    & > &-main {
+    & > &__main {
       flex: auto;
       flex-wrap: nowrap;
     }
 
-    & > &-start, 
-    & > &-end {
+    & > &__start, 
+    & > &__end {
       // TODO: start & end overflow
       flex-shrink: 0;
     }
@@ -81,7 +77,7 @@ export default {
       width: 100%;
       overflow-x: auto;
 
-      > .flex-layout-main {
+      > .mo-flex--main {
         min-width: 0;
         overflow-x: auto;
       }
@@ -96,7 +92,7 @@ export default {
       height: 100%;
       overflow-y: auto;
 
-      > .flex-layout-main {
+      > .mo-flex--main {
         min-height: 0;
         overflow-y: auto;
       }
