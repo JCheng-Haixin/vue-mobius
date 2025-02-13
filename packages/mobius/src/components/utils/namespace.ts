@@ -4,7 +4,7 @@ const NAMESPACE = 'mo';
 
 type Mod = { [key: string]: boolean }
 
-interface Bem {
+export interface Bem {
   (): string
   (mods: Mod): string
   (el: string): string
