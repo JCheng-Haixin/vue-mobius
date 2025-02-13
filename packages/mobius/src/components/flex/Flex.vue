@@ -77,7 +77,7 @@
       width: 100%;
       overflow-x: auto;
 
-      > .mo-flex--main {
+      > .mo-flex__main {
         min-width: 0;
         overflow-x: auto;
       }
@@ -92,7 +92,7 @@
       height: 100%;
       overflow-y: auto;
 
-      > .mo-flex--main {
+      > .mo-flex__main {
         min-height: 0;
         overflow-y: auto;
       }
