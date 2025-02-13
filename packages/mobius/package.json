@@ -23,7 +23,7 @@
     "dist"
   ],
   "scripts": {
-    "start": "pnpm run build -- --watch src",
+    "start": "unbuild --stub",
     "build": "unbuild",
     "prepublishOnly": "pnpm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
