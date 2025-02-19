@@ -57,13 +57,14 @@
 
 <style lang="scss" scoped>
   .mo-flex {
+    $self: &;
+
     display: flex;
     flex-direction: v-bind(direction);
     box-sizing: border-box;
 
     & > &__main {
       flex: auto;
-      flex-wrap: nowrap;
     }
 
     & > &__start, 
@@ -77,7 +78,7 @@
       width: 100%;
       overflow-x: auto;
 
-      > .mo-flex__main {
+      & > #{$self}__main {
         min-width: 0;
         overflow-x: auto;
       }
@@ -92,11 +93,24 @@
       height: 100%;
       overflow-y: auto;
 
-      > .mo-flex__main {
+      & > #{$self}__main {
         min-height: 0;
         overflow-y: auto;
       }
     }
+
+    // 只存在 start + end 时，保持二者位置
+    &:has(> #{$self}__start + #{$self}__end) {
+      justify-content: space-between;
+    }
+    // 只存在 end 时，保持 end 位置
+    &:has(> #{$self}__end:only-child) {
+      justify-content: flex-end;
+    }
+
+    // ------------------------------
+    // Transition
+    // ------------------------------
 
     & > .width-enter-active,
     & > .width-leave-active {
