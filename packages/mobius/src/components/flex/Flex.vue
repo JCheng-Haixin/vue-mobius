@@ -99,6 +99,10 @@
       }
     }
 
+    // TODO: 考虑是否通过 modifier 的方式来实现
+    // - 优势：将 css 的 specificity 降低至 2（含 scoped），方便用户覆盖
+    // - 当前：specificity 为 4（含 scoped）
+
     // 只存在 start + end 时，保持二者位置
     &:has(> #{$self}__start + #{$self}__end) {
       justify-content: space-between;
