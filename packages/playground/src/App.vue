@@ -9,14 +9,11 @@
       <template #default>中</template>
       <template #end>右</template>
     </MoFlex>
-    <MoFlex direction="column" style="height: 200px;" :start="{ visible: false }" :main="{ visible: false }">
-      <template #start>上</template>
-      <template #default>中</template>
+    <MoFlex direction="column" style="height: 200px;">
       <template #end>下</template>
     </MoFlex>
-    <MoFlex direction="column" style="height: 200px;" :main="{ visible: false }">
+    <MoFlex direction="column" style="height: 200px;">
       <template #start>上</template>
-      <template #default>中</template>
       <template #end>下</template>
     </MoFlex>
   </div>

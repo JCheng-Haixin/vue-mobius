@@ -6,7 +6,7 @@
 </script>
 
 <script setup lang="ts">
-  import { computed, type StyleValue } from 'vue';
+  import { computed, useSlots, type StyleValue } from 'vue';
   import { createNamespace } from '../utils/namespace';
 
   type FlexChild = {
@@ -24,32 +24,27 @@
   }>(), { direction: 'row' })
 
   const transition = computed(() => props.direction.includes('row') ? 'width' : 'height')
+  const slots = useSlots()
+  const children = computed(() => {
+    return ['start', 'main', 'end'].filter(key => {
+      const child = props[key]
+      if (child && 'visible' in child) return child.visible
+      return key === 'main' ? !!slots.default : !!slots[key]
+    })
+  })
 </script>
 
 <template>
-  <div :class="[bem(), bem({ [direction]: true })]">
-    <Transition :name="transition">
-      <div v-if="start?.visible !== false" 
-        :class="[bem('start'), start?.class]"
-        :style="start?.style">
-        <slot name="start" />
-      </div>
-    </Transition>
-    <Transition :name="transition">
-      <div
-        v-if="main?.visible !== false"
-        ref="refMain"
-        :class="[bem('main'), main?.class]"
-        :style="main?.style"
-      >
-        <slot />
-      </div>
-    </Transition>
-    <Transition :name="transition">
-      <div v-if="end?.visible !== false" 
-        :class="[bem('end'), end?.class]"
-        :style="end?.style">
-        <slot name="end" />
+  <div :class="[
+    bem(), 
+    bem({ 
+      [direction]: true, 
+      [`children-${children.join('-')}`]: children.length 
+    })]">
+    <Transition v-for="child of children" :name="transition" :key="child">
+      <div :class="[bem(child), $props[child]?.class]"
+        :style="$props[child]?.style">
+        <slot :name="child === 'main' ? 'default' : child" />
       </div>
     </Transition>
   </div>
@@ -99,16 +94,11 @@
       }
     }
 
-    // TODO: 考虑是否通过 modifier 的方式来实现
-    // - 优势：将 css 的 specificity 降低至 2（含 scoped），方便用户覆盖
-    // - 当前：specificity 为 4（含 scoped）
-
     // 只存在 start + end 时，保持二者位置
-    &:has(> #{$self}__start + #{$self}__end) {
-      justify-content: space-between;
+    &--children-start-end {
+      justify-content: space-between
     }
-    // 只存在 end 时，保持 end 位置
-    &:has(> #{$self}__end:only-child) {
+    &--children-end {
       justify-content: flex-end;
     }
 
