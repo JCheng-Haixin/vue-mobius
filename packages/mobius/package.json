@@ -26,7 +26,7 @@
     "start": "unbuild --stub",
     "build": "unbuild",
     "prepublishOnly": "pnpm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
@@ -53,8 +53,12 @@
     "vue": "^3.0.0"
   },
   "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/test-utils": "^2.4.6",
+    "jsdom": "^26.0.0",
     "sass": "^1.84.0",
     "unbuild": "^3.3.1",
+    "vitest": "^3.0.6",
     "vue-tsc": "^2.2.0"
   }
 }
