@@ -6,6 +6,7 @@ export default defineBuildConfig({
     { builder: 'mkdist', input: './src', pattern: ['**/*.ts'], format: 'cjs', loaders: ['js'], ext: 'cjs' },
     { builder: 'mkdist', input: './src', pattern: ['**/*.ts'], format: 'esm', loaders: ['js'], ext: 'js' },
   ],
+  externals: ['**/test/**/*'],
   declaration: true,
   clean: true,
 })
